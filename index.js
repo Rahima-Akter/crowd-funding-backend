@@ -55,24 +55,23 @@ async function run() {
         //     res.send(result)
         // })
 
-
+        // addCampaign search parameters with both id and email
         app.get('/addCampaign/:param', async (req, res) => {
             const param = req.params.param;
-        
             try {
                 let result;
                 if (ObjectId.isValid(param)) {
                     const query = { _id: new ObjectId(param) };
-                    result = await campaignData.findOne(query); 
+                    result = await campaignData.findOne(query);
                 } else {
                     const query = { userEmail: param };
-                    result = await campaignData.find(query).toArray(); 
+                    result = await campaignData.find(query).toArray();
                 }
-        
+
                 if (!result) {
                     return res.status(404).send({ message: 'No matching campaign found.' });
                 }
-        
+
                 res.send(result);
             } catch (error) {
                 console.error('Error fetching campaigns:', error);
@@ -88,13 +87,42 @@ async function run() {
             res.send(result);
         })
 
-        // get my donation data based on the user email
-        app.get('/donation/:email', async (req, res) => {
-            const email = req.params.email;
-            const query = { userEmail: email }
-            const result = await donationDB.find(query).toArray();
-            res.send(result)
-        })
+        // donation search parameters with both id and email
+        app.get('/donation/:param', async (req, res) => {
+            const param = req.params.param;
+
+            try {
+                let result;
+                if (ObjectId.isValid(param)) {
+                    const query = { _id: new ObjectId(param) };
+                    result = await donationDB.findOne(query);
+                } else {
+                    const query = { userEmail: param };
+                    result = await donationDB.find(query).toArray();
+                }
+
+                if (!result) {
+                    return res.status(404).send({ message: 'No matching campaign found.' });
+                }
+
+                res.send(result);
+            } catch (error) {
+                console.error('Error fetching campaigns:', error);
+                res.status(500).send({ message: 'Error fetching campaigns.' });
+            }
+        });
+
+
+
+
+        // app.delete('/donation/:email', async(req, res) => {
+        //     const email = req.params.email;
+        //     const query = { userEmail: email }
+        //     const result = await donationDB.deleteOne(query);
+        //     res.send(result)
+        // })
+
+
 
         // sending donation to the database
         app.post('/donation', async (req, res) => {
@@ -107,6 +135,42 @@ async function run() {
         app.post('/addCampaign', async (req, res) => {
             const addCampaign = req.body;
             const result = await campaignData.insertOne(addCampaign)
+            res.send(result)
+        })
+
+        // update MyCampaign deta
+        app.patch('/addCampaign/:id', async (req, res) => {
+            const updateId = req.params.id;
+            const filter = { _id: new ObjectId(updateId) };
+            const option = { upsert: true };
+            const updateData = req.body;
+            const update = {
+                $set: {
+                    image: updateData.image,
+                    title: updateData.title,
+                    type: updateData.type,
+                    description: updateData.description,
+                    minDonation: updateData.minDonation,
+                    deadline: updateData.deadline,
+                }
+            }
+            const result = await campaignData.updateOne(filter, update, option)
+            res.send(result)
+        });
+
+        // delete a campaign
+        app.delete('/addCampaign/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await campaignData.deleteOne(query);
+            res.send(result)
+        });
+
+        // delete my donation
+        app.delete('/donation/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await donationDB.deleteOne(query);
             res.send(result)
         })
 
