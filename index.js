@@ -112,18 +112,6 @@ async function run() {
             }
         });
 
-
-
-
-        // app.delete('/donation/:email', async(req, res) => {
-        //     const email = req.params.email;
-        //     const query = { userEmail: email }
-        //     const result = await donationDB.deleteOne(query);
-        //     res.send(result)
-        // })
-
-
-
         // sending donation to the database
         app.post('/donation', async (req, res) => {
             const donation = req.body;
