@@ -112,7 +112,7 @@ async function run() {
             }
         });
 
-        // sending donation to the database
+        // sending donation data to the database
         app.post('/donation', async (req, res) => {
             const donation = req.body;
             const result = await donationDB.insertOne(donation);
