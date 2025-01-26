@@ -1,4 +1,4 @@
-# Project Name
+# CrowdPluse
 
 Welcome to the **CrowdPulse** repository! This project is a web application powered by **Express.js** and **MongoDB**, with some useful utilities to manage environment variables and handle CORS issues.
 
@@ -33,14 +33,13 @@ git clone https://github.com/Rahima-Akter/crowd-funding-backend.git
 cd project-name
 ```
 ### 2. Install Dependencies
-```bash
-Install the necessary dependencies using npm (Node Package Manager):
-```
+- Install the necessary dependencies using npm (Node Package Manager):
+
 ```bash
 npm install
 ```
-# This will install all the dependencies listed in the package.json file including:
-- **cors, dotenv, express, mongodb**
+- This will install all the dependencies listed in the package.json file including:
+- -----> **cors, dotenv, express, mongodb**
 
 ### 3. Setup Environment Variables:
 Create a .env file in the root of your project and add your environment variables there. Here's an example of what your .env file might look like:
