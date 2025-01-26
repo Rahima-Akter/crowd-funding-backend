@@ -1,4 +1,4 @@
-# CrowdPluse
+# 🤝🤝CrowdPluse🤝🤝
 
 Welcome to the **CrowdPulse** repository! This project is a web application powered by **Express.js** and **MongoDB**, with some useful utilities to manage environment variables and handle CORS issues.
 
