@@ -79,7 +79,6 @@ async function run() {
             }
         });
 
-
         // getting donation data from the database
         app.get('/donation', async (req, res) => {
             const cursor = donationDB.find();
